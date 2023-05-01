@@ -9,15 +9,6 @@ export default defineEventHandler((event) => {
 
   if (Object.keys(query).length === 0) return spells;
 
-  if (!compareKeys(query, spells[0])) {
-    setResponseStatus(event, 400);
-    return {
-      message: `Valores de query válidos: ${Object.keys(spells[0]).join(
-        ", "
-      )}.`,
-    };
-  }
-
   const fuse = new Fuse(spells, {
     shouldSort: true,
     isCaseSensitive: false,
