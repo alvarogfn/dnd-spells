@@ -1,42 +1,41 @@
-# Nuxt 3 Minimal Starter
+# API restful das magias de D&D
 
-Look at the [Nuxt 3 documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+## *get* /spells
 
-## Setup
+* Não passar nenhum parametro query retorna todas as magias.
+* Todos os campos podem ser filtrados pela query. Será retornada a lista de magias que atender a todos os campos.
 
-Make sure to install the dependencies:
+### Exemplo
 
-```bash
-# yarn
-yarn install
+Filtrar magia que contém pele no material, criatura na descrição e nível igual a 3.
 
-# npm
-npm install
+`GET /spells?materials=pele&description=criatura1&level=3`
+`GET /spells?materials=pele&description=criatura1&level=3`
 
-# pnpm
-pnpm install
-```
+## *get* /spell/:id
 
-## Development Server
+Retorna uma mágia especificada pelo ID.
 
-Start the development server on `http://localhost:3000`
+`GET /spell/1`
 
-```bash
-npm run dev
-```
+## *get* /search/spells?s=
 
-## Production
+* Retorna qualquer magia que contenha o texto especificado no parametro query `s` em qualquer um dos seus campos.
+* Se não passado, retorna todas as mágias.
 
-Build the application for production:
+`GET /spell/1`
 
-```bash
-npm run build
-```
+## Exemplo de Objeto Retornado
 
-Locally preview production build:
-
-```bash
-npm run preview
-```
-
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
+| Chave         | Tipo           |
+| -------------|:--------------:|
+| materials     | string         |
+| description   | string         |
+| duration      | string         |
+| components    | string[]       |
+| id            | number         |
+| range         | string         |
+| casting_time  | string         |
+| type          | string         |
+| name          | string         |
+| level         | number         |

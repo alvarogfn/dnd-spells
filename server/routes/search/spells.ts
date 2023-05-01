@@ -7,16 +7,9 @@ const spells: Spell[] = data.sort((a, b) => a.id - b.id);
 export default defineEventHandler((event) => {
   const query = getQuery(event);
 
-  if (Object.keys(query).length === 0) return spells;
+  const searchText = query.s;
 
-  if (!compareKeys(query, spells[0])) {
-    setResponseStatus(event, 400);
-    return {
-      message: `Valores de query válidos: ${Object.keys(spells[0]).join(
-        ", "
-      )}.`,
-    };
-  }
+  if (!searchText) return spells;
 
   const fuse = new Fuse(spells, {
     shouldSort: true,
@@ -25,7 +18,7 @@ export default defineEventHandler((event) => {
     includeScore: true,
   });
 
-  const result = fuse.search({ $and: [query] });
+  const result = fuse.search(searchText.toString());
 
   return result.map((value) => value.item);
 });
